@@ -1,0 +1,11 @@
+---
+
+sudo: required
+dist: trusty
+services: docker
+
+install:
+  - bundle install --jobs=3 --retry=3
+
+script:
+  - bundle exec rake spec

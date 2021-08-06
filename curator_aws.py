@@ -21,7 +21,7 @@ def main():
         config['client']['aws_secret_key'] = credentials.secret_key
         config['client']['aws_session_token'] = credentials.token
 
-        temp_config.write(yaml.dump(config))
+        temp_config.write(yaml.dump(config, encoding='utf-8'))
         temp_config.flush()
 
         s3.Object(os.environ['CONFIG_BUCKET'], 'actions.yml').download_fileobj(temp_actions)

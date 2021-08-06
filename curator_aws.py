@@ -1,5 +1,3 @@
-from __future__ import print_function
-
 import curator
 import yaml
 import boto3

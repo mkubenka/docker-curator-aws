@@ -1,15 +1,10 @@
-FROM alpine:3.6
+FROM alpine:3.14
 
 RUN apk --update add \
-        python \
-        py-setuptools \
-        py-pip \
-        git \
-    && pip install boto3==1.4.7 \
-    # https://github.com/elastic/curator/pull/1079
-    && pip install git+https://github.com/mkubenka/curator.git@feature/aws-sts \
-    && pip install requests-aws4auth==0.9 \
-    && apk del py-pip git \
+        python3 \
+        py3-pip \
+    && pip install elasticsearch-curator==5.8.4 \
+    && apk del py3-pip \
     && rm -rf /var/cache/apk/*
 
 RUN mkdir -p /code

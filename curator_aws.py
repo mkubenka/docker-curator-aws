@@ -15,7 +15,7 @@ def main():
         s3.Object(os.environ['CONFIG_BUCKET'], 'curator.yml').download_fileobj(temp_config)
         temp_config.seek(0)
 
-        config = yaml.load(temp_config)
+        config = yaml.load(temp_config, Loader=yaml.FullLoader)
 
         config['client']['aws_key'] = credentials.access_key
         config['client']['aws_secret_key'] = credentials.secret_key

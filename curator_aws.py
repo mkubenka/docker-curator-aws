@@ -9,7 +9,6 @@ def main():
     s3 = boto3.resource('s3')
 
     session = boto3.Session()
-    credentials = session.get_credentials()
 
     with tempfile.NamedTemporaryFile() as temp_config, tempfile.NamedTemporaryFile() as temp_actions:
         s3.Object(os.environ['CONFIG_BUCKET'], 'curator.yml').download_fileobj(temp_config)
@@ -17,9 +16,7 @@ def main():
 
         config = yaml.load(temp_config, Loader=yaml.FullLoader)
 
-        config['client']['aws_key'] = credentials.access_key
-        config['client']['aws_secret_key'] = credentials.secret_key
-        config['client']['aws_session_token'] = credentials.token
+        config['client']['aws_sign_request'] = True
 
         temp_config.write(yaml.dump(config, encoding='utf-8'))
         temp_config.flush()
